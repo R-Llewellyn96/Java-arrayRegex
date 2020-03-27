@@ -1,6 +1,11 @@
 //Import regex libraries
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 //class takes array as input and performs regex match and replace
 public class arrayRegex {
@@ -71,18 +76,34 @@ public class arrayRegex {
             System.out.println("\nOriginal Array:");
             callFunc.print_array(args);
 
-            //loop through each string passed as argument to main method
-            for(int i = 0; i < args.length; i++) {
+            //create an arrayList of strings to hold input string values
+            List<String> listOfStr = new ArrayList<>();
 
-                //calls function to perform regex match and replace on input string,
-                // assigns returned string from function to array index value
-                args[i] = callFunc.do_regex(args[i]);
+            //copy contents of args to arrayList
+            Collections.addAll(listOfStr, args);
+
+            //create an arrayList of strings to hold modified string values
+            List<String> newStr = new ArrayList<>();
+
+            //Create parallel streams for each value in arrayList of input strings
+            listOfStr.parallelStream().forEachOrdered( s -> {
+
+                //call regex function on current input string
+                        // and add to newStr arrayList holding our modified strings
+                newStr.add(callFunc.do_regex(s));
 
             }
+            );
+
+            //create new string array the same size as our arrayList of new strings
+            String[] strArray = new String[newStr.size()];
+
+            //asssign all values from arraylist to our new string array
+            strArray = newStr.toArray(strArray);
 
             //Print out modified array
             System.out.println("\nModified Array:");
-            callFunc.print_array(args);
+            callFunc.print_array(strArray);
 
         } else {
 

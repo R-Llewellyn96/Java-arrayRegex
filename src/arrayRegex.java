@@ -64,9 +64,6 @@ public class arrayRegex {
         //creates instance of program class for dynamic function calling
         arrayRegex callFunc = new arrayRegex();
 
-        //declares line string variable
-        String line;
-
         //check if string array passed to main method is not zero
         if(args.length > 0) {
 
@@ -77,14 +74,9 @@ public class arrayRegex {
             //loop through each string passed as argument to main method
             for(int i = 0; i < args.length; i++) {
 
-                //assign line to value of passed arg
-                line = args[i];
-
-                //calls function to perform regex match and replace on input string
-                String newStr = callFunc.do_regex(line);
-
-                //assign returned string from function to array index value
-                args[i] = newStr;
+                //calls function to perform regex match and replace on input string,
+                // assigns returned string from function to array index value
+                args[i] = callFunc.do_regex(args[i]);
 
             }
 
